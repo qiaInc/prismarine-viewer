@@ -3,5 +3,5 @@ module.exports = {
   WorldView: require('./lib/worldView').WorldView,
   MapControls: require('./lib/controls').MapControls,
   Entity: require('./lib/entity/Entity'),
-  getBufferFromStream: require('./lib/simpleUtils').getBufferFromStream
-}
+  getBufferFromStream: require('./lib/simpleUtils').getBufferFromStream,
+};

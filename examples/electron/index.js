@@ -1,36 +1,36 @@
-const path = require('path')
-const { app, BrowserWindow } = require('electron')
+const path = require('path');
+const { app, BrowserWindow } = require('electron');
 
-function createMainWindow () {
+function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInWorker: true,
-      preload: path.join(__dirname, './client/preload.js')
-    }
-  })
+      preload: path.join(__dirname, './client/preload.js'),
+    },
+  });
 
   // Open dev tools on load
-  window.webContents.openDevTools()
+  window.webContents.openDevTools();
 
-  window.loadFile(path.join(__dirname, './client/index.html'))
+  window.loadFile(path.join(__dirname, './client/index.html'));
 
   window.webContents.on('devtools-opened', () => {
-    window.focus()
+    window.focus();
     setImmediate(() => {
-      window.focus()
-    })
-  })
+      window.focus();
+    });
+  });
 
-  return window
+  return window;
 }
 
 app.on('ready', () => {
-  createMainWindow()
-})
+  createMainWindow();
+});
 
 app.on('window-all-closed', function () {
-  app.quit()
-})
+  app.quit();
+});
 
-app.allowRendererProcessReuse = false
+app.allowRendererProcessReuse = false;

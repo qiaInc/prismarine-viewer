@@ -2,12 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -16,33 +15,33 @@ jobs:
         javaVersion: [1.8]
         mcVersionIndex: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
         include:
-         - javaVersion: 16
-           mcVersionIndex: 10
-         - javaVersion: 17
-           mcVersionIndex: 11
+          - javaVersion: 16
+            mcVersionIndex: 10
+          - javaVersion: 17
+            mcVersionIndex: 11
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Setup Java JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: ${{ matrix.javaVersion }}
-        java-package: jre
-    - name: Install xi
-      run: sudo apt-get install -y libxi-dev libglu1-mesa-dev
-    - run: npm install
-    - env:
-        CIRCLE_NODE_INDEX: ${{ matrix.mcVersionIndex }}
-        CIRCLE_NODE_TOTAL: 12
-      run: npm test
-    - uses: actions/upload-artifact@v2
-      with:
-        name: test_picture
-        path: test/test_*.png
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup Java JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.javaVersion }}
+          java-package: jre
+      - name: Install xi
+        run: sudo apt-get install -y libxi-dev libglu1-mesa-dev
+      - run: npm install
+      - env:
+          CIRCLE_NODE_INDEX: ${{ matrix.mcVersionIndex }}
+          CIRCLE_NODE_TOTAL: 12
+        run: npm test
+      - uses: actions/upload-artifact@v2
+        with:
+          name: test_picture
+          path: test/test_*.png
   DeployPages:
     runs-on: ubuntu-latest
     needs: build

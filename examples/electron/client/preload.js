@@ -1,5 +1,5 @@
 // Required to detect electron in prismarine-viewer
-globalThis.isElectron = true
+globalThis.isElectron = true;
 
 // If you need to disable node integration:
 // * Node.js APIs will only be avaliable in this file

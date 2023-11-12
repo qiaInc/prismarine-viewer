@@ -22,45 +22,44 @@ npm install prismarine-viewer
 ## Example
 
 ```js
-const mineflayer = require('mineflayer')
-const mineflayerViewer = require('prismarine-viewer').mineflayer
+const mineflayer = require('mineflayer');
+const mineflayerViewer = require('prismarine-viewer').mineflayer;
 
 const bot = mineflayer.createBot({
-  username: 'Bot'
-})
+  username: 'Bot',
+});
 
 bot.once('spawn', () => {
-  mineflayerViewer(bot, { port: 3000 }) // Start the viewing server on port 3000
+  mineflayerViewer(bot, { port: 3000 }); // Start the viewing server on port 3000
 
   // Draw the path followed by the bot
-  const path = [bot.entity.position.clone()]
+  const path = [bot.entity.position.clone()];
   bot.on('move', () => {
     if (path[path.length - 1].distanceTo(bot.entity.position) > 1) {
-      path.push(bot.entity.position.clone())
-      bot.viewer.drawLine('path', path)
+      path.push(bot.entity.position.clone());
+      bot.viewer.drawLine('path', path);
     }
-  })
-})
+  });
+});
 ```
 
 More examples:
 
-* First person bot [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/firstperson_bot.js)
-* Record view as video file [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/headless.js)
-* Streaming video to a python script [example](https://github.com/PrismarineJS/prismarine-viewer/tree/master/examples/python)
-* Visualize a world, without a bot [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/standalone.js)
-* Visualize the world coming from a proxy [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/proxy.js)
-* Click to move [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/clickmove.js)
-* Use the core api for viewing worlds [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/core)
-* Create an electron app with viewer [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/electron)
-* Create a fully front end viewer with an in memory world [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/standalone)
-* A minecraft web client example, using mineflayer and a websocket proxy [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/web_client)
-* Export parts of worlds as screenshot or 3d models [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/exporter)
+- First person bot [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/firstperson_bot.js)
+- Record view as video file [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/headless.js)
+- Streaming video to a python script [example](https://github.com/PrismarineJS/prismarine-viewer/tree/master/examples/python)
+- Visualize a world, without a bot [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/standalone.js)
+- Visualize the world coming from a proxy [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/proxy.js)
+- Click to move [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/clickmove.js)
+- Use the core api for viewing worlds [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/core)
+- Create an electron app with viewer [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/electron)
+- Create a fully front end viewer with an in memory world [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/standalone)
+- A minecraft web client example, using mineflayer and a websocket proxy [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/web_client)
+- Export parts of worlds as screenshot or 3d models [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/exporter)
 
 ## Projects using prismarine-viewer
 
-* [prismarine-web-client](https://github.com/PrismarineJS/prismarine-web-client) A minecraft client in your browser
-
+- [prismarine-web-client](https://github.com/PrismarineJS/prismarine-web-client) A minecraft client in your browser
 
 ## API
 
@@ -76,13 +75,14 @@ Check its [API](viewer/README.md)
 Serve a webserver allowing to visualize the bot surrounding, in first or third person. Comes with drawing functionnalities.
 
 ```js
-const { mineflayer } = require('prismarine-viewer')
+const { mineflayer } = require('prismarine-viewer');
 ```
 
 Options:
-* `viewDistance` view radius, in chunks, default: `6`
-* `firstPerson` is the view first person ? default: `false`
-* `port` the port for the webserver, default: `3000`
+
+- `viewDistance` view radius, in chunks, default: `6`
+- `firstPerson` is the view first person ? default: `false`
+- `port` the port for the webserver, default: `3000`
 
 [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/bot.js)
 
@@ -91,15 +91,16 @@ Options:
 Serve a webserver allowing to visualize a world.
 
 ```js
-const { standalone } = require('prismarine-viewer')
+const { standalone } = require('prismarine-viewer');
 ```
 
 Options:
-* `version` the version to use, default: `1.13.2`
-* `generator` a world generator function, default: `(x, y, z) => 0`
-* `center` a vec3 to center the view on, default: `new Vec3(0, 0, 0)`
-* `viewDistance` view radius, in chunks, default: `6`
-* `port` the port for the webserver, default: `3000`
+
+- `version` the version to use, default: `1.13.2`
+- `generator` a world generator function, default: `(x, y, z) => 0`
+- `center` a vec3 to center the view on, default: `new Vec3(0, 0, 0)`
+- `viewDistance` view radius, in chunks, default: `6`
+- `port` the port for the webserver, default: `3000`
 
 [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/standalone.js)
 
@@ -108,15 +109,16 @@ Options:
 Render the bot view and stream it to a file or over TCP.
 
 ```js
-const { headless } = require('prismarine-viewer')
+const { headless } = require('prismarine-viewer');
 ```
 
 Options:
-* `viewDistance` view radius, in chunks, default: `6`
-* `output` the output file or a `host:port` address to stream to, default: `output.mp4`
-* `frames` number of frames to record, `-1` for infinite, default: `200`
-* `width` the width of a frame, default: `512`
-* `height` the height of a frame, default: `512`
+
+- `viewDistance` view radius, in chunks, default: `6`
+- `output` the output file or a `host:port` address to stream to, default: `output.mp4`
+- `frames` number of frames to record, `-1` for infinite, default: `200`
+- `width` the width of a frame, default: `512`
+- `height` the height of a frame, default: `512`
 
 [example](https://github.com/PrismarineJS/prismarine-viewer/blob/master/examples/headless.js)
 

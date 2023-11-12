@@ -1,13 +1,13 @@
-const webpack = require('webpack')
-const path = require('path')
-const CopyPlugin = require('copy-webpack-plugin')
+const webpack = require('webpack');
+const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
   mode: 'production',
   entry: path.resolve(__dirname, './index.js'),
   output: {
     path: path.resolve(__dirname, './public'),
-    filename: './index.js'
+    filename: './index.js',
   },
   resolve: {
     fallback: {
@@ -15,29 +15,29 @@ const config = {
       stream: require.resolve('stream-browserify'),
       buffer: require.resolve('buffer/'),
       events: require.resolve('events/'),
-      assert: require.resolve('assert/')
-    }
+      assert: require.resolve('assert/'),
+    },
   },
   plugins: [
     // fix "process is not defined" error:
     new webpack.ProvidePlugin({
-      process: 'process/browser'
+      process: 'process/browser',
     }),
     new webpack.ProvidePlugin({
-      Buffer: ['buffer', 'Buffer']
+      Buffer: ['buffer', 'Buffer'],
     }),
     new webpack.NormalModuleReplacementPlugin(
       /prismarine-viewer[/|\\]viewer[/|\\]lib[/|\\]utils/,
-      './utils.web.js'
+      './utils.web.js',
     ),
     new CopyPlugin({
       patterns: [
         { from: '../../public/blocksStates/', to: './blocksStates/' },
         { from: '../../public/textures/*.png', to: './textures/' },
         { from: '../../public/worker.js', to: './' },
-        { from: '../../public/supportedVersions.json', to: './' }
-      ]
-    })
+        { from: '../../public/supportedVersions.json', to: './' },
+      ],
+    }),
   ],
   devServer: {
     contentBase: path.resolve(__dirname, './public'),
@@ -46,23 +46,32 @@ const config = {
     // open: true,
     hot: true,
     watchOptions: {
-      ignored: /node_modules/
-    }
+      ignored: /node_modules/,
+    },
   },
   externals: [
     // This removes some large unnecessary data from the bundle
     function (req, cb) {
-      if (req.context.includes('minecraft-data') && req.request.endsWith('.json')) {
-         const fileName = req.request.split('/').pop().replace('.json', '')
-        const blocked = ['blocksB2J', 'blocksJ2B', 'blockMappings', 'steve', 'recipes']
+      if (
+        req.context.includes('minecraft-data') &&
+        req.request.endsWith('.json')
+      ) {
+        const fileName = req.request.split('/').pop().replace('.json', '');
+        const blocked = [
+          'blocksB2J',
+          'blocksJ2B',
+          'blockMappings',
+          'steve',
+          'recipes',
+        ];
         if (blocked.includes(fileName)) {
-          cb(null, [])
-          return
+          cb(null, []);
+          return;
         }
       }
-      cb()
-    }
-  ]
-}
+      cb();
+    },
+  ],
+};
 
-module.exports = config
+module.exports = config;

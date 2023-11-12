@@ -1,8 +1,8 @@
-const webpack = require('webpack')
-const path = require('path')
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const webpack = require('webpack');
+const path = require('path');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const config = {
   // devtool: 'inline-source-map',
@@ -11,17 +11,17 @@ const config = {
   entry: path.resolve(__dirname, './index.js'),
   output: {
     path: path.resolve(__dirname, './public'),
-    filename: './index.js'
+    filename: './index.js',
   },
   resolve: {
     alias: {
       'minecraft-protocol': path.resolve(
         __dirname,
-        'node_modules/minecraft-protocol/src/index.js'
+        'node_modules/minecraft-protocol/src/index.js',
       ), // Hack to allow creating the client in a browser
       express: false,
       net: 'net-browserify',
-      fs: 'memfs'
+      fs: 'memfs',
     },
     fallback: {
       zlib: require.resolve('browserify-zlib'),
@@ -39,21 +39,21 @@ const config = {
       // fs: require.resolve("fs-memory/singleton"),
       child_process: false,
       perf_hooks: path.resolve(__dirname, 'perf_hooks_replacement.js'),
-      dns: path.resolve(__dirname, 'dns.js')
-    }
+      dns: path.resolve(__dirname, 'dns.js'),
+    },
   },
   plugins: [
     // fix "process is not defined" error:
     new CleanWebpackPlugin(),
     new webpack.ProvidePlugin({
-      process: 'process/browser'
+      process: 'process/browser',
     }),
     new webpack.ProvidePlugin({
-      Buffer: ['buffer', 'Buffer']
+      Buffer: ['buffer', 'Buffer'],
     }),
     new webpack.NormalModuleReplacementPlugin(
       /prismarine-viewer[/|\\]viewer[/|\\]lib[/|\\]utils/,
-      './utils.web.js'
+      './utils.web.js',
     ),
     new CopyPlugin({
       patterns: [
@@ -61,11 +61,11 @@ const config = {
         { from: '../../public/blocksStates/', to: './blocksStates/' },
         { from: '../../public/textures/', to: './textures/' },
         { from: '../../public/worker.js', to: './' },
-        { from: '../../public/supportedVersions.json', to: './' }
-      ]
+        { from: '../../public/supportedVersions.json', to: './' },
+      ],
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new LodashModuleReplacementPlugin()
+    new LodashModuleReplacementPlugin(),
   ],
   devServer: {
     contentBase: path.resolve(__dirname, './public'),
@@ -74,9 +74,9 @@ const config = {
     // open: true,
     hot: true,
     watchOptions: {
-      ignored: /node_modules/
-    }
-  }
-}
+      ignored: /node_modules/,
+    },
+  },
+};
 
-module.exports = config
+module.exports = config;
