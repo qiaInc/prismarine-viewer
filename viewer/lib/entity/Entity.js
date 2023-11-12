@@ -174,7 +174,7 @@ function getMesh(texture, jsonModel) {
 
   const rootBones = [];
   for (const jsonBone of jsonModel.bones) {
-    // Add by @derodero24
+    // Added by @derodero24
     if (Object.keys(bones).includes(jsonBone.parent)) {
       bones[jsonBone.parent].add(bones[jsonBone.name]);
     } else {
@@ -229,7 +229,6 @@ function getMesh(texture, jsonModel) {
 class Entity {
   constructor(version, type, scene) {
     const e = entities[type];
-
     // Fixed by @derodero24
     if (!e) {
       console.warn(`[WARN] Unknown entity ${type}`);

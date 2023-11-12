@@ -16,7 +16,7 @@ function loadTexture(texture, cb) {
   if (textureCache[texture]) {
     cb(textureCache[texture]);
   } else {
-    // Fix by @derodero24
+    // Fixed by @derodero24
     const texturePath = path.resolve(__dirname, '../../public/' + texture);
 
     // ファイルが存在しない場合はスキップ
