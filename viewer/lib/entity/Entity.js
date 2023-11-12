@@ -229,7 +229,12 @@ function getMesh(texture, jsonModel) {
 class Entity {
   constructor(version, type, scene) {
     const e = entities[type];
-    if (!e) throw new Error(`Unknown entity ${type}`);
+
+    // Fixed by @derodero24
+    if (!e) {
+      console.warn(`[WARN] Unknown entity ${type}`);
+      return;
+    }
 
     this.mesh = new THREE.Object3D();
     for (const [name, jsonModel] of Object.entries(e.geometry)) {
