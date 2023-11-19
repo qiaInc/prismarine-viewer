@@ -4,6 +4,8 @@ const { prepareBlocksStates } = require('./lib/modelsBuilder');
 const mcAssets = require('minecraft-assets');
 const fs = require('fs-extra');
 
+const supportedVersions = ['1.12', '1.13', '1.16.4'];
+
 const texturesPath = path.resolve(__dirname, '../public/textures');
 if (!fs.existsSync(texturesPath)) {
   fs.mkdirSync(texturesPath);
@@ -14,7 +16,8 @@ if (!fs.existsSync(blockStatesPath)) {
   fs.mkdirSync(blockStatesPath);
 }
 
-for (const version of mcAssets.versions) {
+// for (const version of mcAssets.versions) {
+for (const version of supportedVersions) {
   const assets = mcAssets(version);
   const atlas = makeTextureAtlas(assets);
   const out = fs.createWriteStream(
@@ -37,5 +40,6 @@ for (const version of mcAssets.versions) {
 
 fs.writeFileSync(
   path.resolve(__dirname, '../public/supportedVersions.json'),
-  '[' + mcAssets.versions.map(v => `"${v}"`).toString() + ']',
+  // '[' + mcAssets.versions.map(v => `"${v}"`).toString() + ']',
+  '[' + supportedVersions.map(v => `"${v}"`).toString() + ']',
 );
