@@ -8,15 +8,17 @@ try {
 }
 
 const mineflayer = require('mineflayer');
-const mineflayerViewer = require('prismarine-viewer').headless;
+const HeadlessViewer = require('prismarine-viewer').headless;
 
 const bot = mineflayer.createBot({
+  host: 'localhost',
+  port: 56447, // 「LANに公開」したら値を変更
   username: 'Bot',
 });
 
 bot.once('spawn', () => {
   // Record 200 frames, 512x512 pixels, and save them to output.mp4
-  mineflayerViewer(bot, {
+  new HeadlessViewer(bot, {
     output: 'output.mp4',
     frames: 200,
     width: 512,

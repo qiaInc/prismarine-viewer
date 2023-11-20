@@ -1,14 +1,16 @@
 const mineflayer = require('mineflayer');
-const mineflayerViewer = require('prismarine-viewer').headless;
+const HeadlessViewer = require('prismarine-viewer').headless;
 
 const bot = mineflayer.createBot({
+  username: 'Bot',
+  port: 56447, // 「LANに公開」したら値を変更
   username: 'Bot',
 });
 
 bot.once('spawn', () => {
   // Stream frames over tcp to a server listening on port 8089, ends when the application stop
-  const client = mineflayerViewer(bot, {
-    output: '127.0.0.1:8089',
+  const client = new HeadlessViewer(bot, {
+    output: 'localhost:8089',
     frames: -1,
     width: 512,
     height: 512,
