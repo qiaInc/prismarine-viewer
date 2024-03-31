@@ -1,5 +1,17 @@
 # prismarine-viewer
 
+---
+
+## 岡田メモ
+
+[prismarine-viewer](https://github.com/PrismarineJS/prismarine-viewer)のフォークです。
+
+JavaScriptでMinecraftの世界を描画するためのライブラリです。
+Botの視点画像を取得するために使用しています。
+ただし、オリジナルのレポジトリではバグがあったため、フォークして修正を行っています。
+
+---
+
 Web based viewer for servers and bots
 
 [![NPM version](https://img.shields.io/npm/v/prismarine-viewer.svg)](http://npmjs.com/package/prismarine-viewer)
